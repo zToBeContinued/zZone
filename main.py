@@ -14,16 +14,23 @@ def main():
 
     # askURL("https://movie.douban.com/top250?start=0")
 
+findLink = re.compile(r'<a href="(.*?)">')  #创建正则表达式对象，表示规则（字符串的模式）
+
 #爬取网页
 def getData(baseurl):
     datalist = []
-    for i in range(0,10):
+    for i in range(0,1):
         url = baseurl + str(i*25)
         html = askURL(url)
 
         #2.逐一解析数据
         soup = BeautifulSoup(html,"html.parser")
-        for item in soup.find_all() #查找符合要求的字符串，形成列表
+        for item in soup.find_all("div",class_="item"): #查找符合要求的字符串，形成列表
+            data = []
+            item = str(item)
+
+            link = re.findall(findLink,item)[0]  #re库用来通过正则表达式查找指定的字符串
+            print(link)
     return datalist
 
 #得到指定一个url的网页内容
@@ -36,7 +43,7 @@ def askURL(url):
     try:
         respose = urllib.request.urlopen(request)
         html = respose.read().decode("utf-8")
-        print(html)
+        # print(html)
     except urllib.error.URLError as e:
         if hasattr(e,"code"):
             print(e.code)
