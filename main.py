@@ -21,8 +21,8 @@ findTitle = re.compile(r'<span class="title">(.*)</span>')
 findRating = re.compile(r'<span class="rating_num" property="v:average">(.*)</span>')
 findJudge = re.compile(r'<span>(\d*)人评价</span>')
 findInq = re.compile(r'<span class="inq">(.*)</span>')
-#影片像个内容
-findBd = re.compile(r'<p class="">(.*)</p>',re.S)
+#影片相关内容
+findBd = re.compile(r'<p class="">(.*?)</p>',re.S)
 
 #爬取网页
 def getData(baseurl):
