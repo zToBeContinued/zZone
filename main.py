@@ -14,7 +14,15 @@ def main():
 
     # askURL("https://movie.douban.com/top250?start=0")
 
+#影片详情链接的规则
 findLink = re.compile(r'<a href="(.*?)">')  #创建正则表达式对象，表示规则（字符串的模式）
+findImgSrc = re.compile(r'<img.*src="(.*?)"',re.S)  #re.S  让换行符包含在字符中
+findTitle = re.compile(r'<span class="title">(.*)</span>')
+findRating = re.compile(r'<span class="rating_num" property="v:average">(.*)</span>')
+findJudge = re.compile(r'<span>(\d*)人评价</span>')
+findInq = re.compile(r'<span class="inq">(.*)</span>')
+#影片像个内容
+findBd = re.compile(r'<p class="">(.*)</p>',re.S)
 
 #爬取网页
 def getData(baseurl):
@@ -29,8 +37,8 @@ def getData(baseurl):
             data = []
             item = str(item)
 
+            #影片详情的超链接
             link = re.findall(findLink,item)[0]  #re库用来通过正则表达式查找指定的字符串
-            print(link)
     return datalist
 
 #得到指定一个url的网页内容
